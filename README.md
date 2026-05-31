@@ -25,13 +25,10 @@ Built with Vanilla JS + Firebase — No frameworks, no dependencies.
 - [Overview](#-overview)
 - [Features](#-features)
 - [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
 - [Getting Started](#-getting-started)
 - [Firebase Setup](#-firebase-setup)
 - [Environment Configuration](#-environment-configuration)
 - [Running Locally](#-running-locally)
-- [Deployment](#-deployment)
-- [Security Architecture](#-security-architecture)
 - [Firestore Schema](#-firestore-schema)
 
 
@@ -75,65 +72,6 @@ Built as a full-stack project using only Vanilla HTML, CSS, and JavaScript on th
 | **Fonts** | Noto Sans (Google Fonts — multilingual support) |
 
 > Zero npm dependencies. Zero build tools. Zero frameworks.
-
----
-
-## 📁 Project Structure
-
-```
-gov-doc-vault/
-│
-├── 📄 index.html                     # Auth entry — OTP login
-├── 📄 dashboard.html                 # Document management dashboard
-├── 📄 family.html                    # Family access management
-├── 📄 profile.html                   # User profile page
-│
-├── ⚙️  firebase.json                  # Hosting config + security headers
-├── ⚙️  firestore.indexes.json         # Composite query indexes
-├── ⚙️  .firebaserc                    # Project aliases (dev / prod)
-├── 🔒 .gitignore
-├── 📋 .env.example                    # Environment variable reference
-├── 📋 __env.example.js               # Runtime env injection template
-│
-├── 🎨 css/
-│   ├── base.css                      # Design tokens, reset, typography
-│   ├── layout.css                    # Page layouts, sidebar, dashboard
-│   ├── components.css                # All UI components
-│   └── utilities.css                 # Helper classes
-│
-├── ⚡ js/
-│   ├── config/
-│   │   ├── env.js                    # Runtime env loader + validation
-│   │   └── firebase.config.js        # Firebase init, auth persistence
-│   │
-│   ├── services/
-│   │   ├── auth.service.js           # OTP send, verify, logout
-│   │   ├── db.service.js             # Firestore CRUD + ownership
-│   │   ├── storage.service.js        # File upload (with progress), delete
-│   │   ├── share.service.js          # Share/revoke orchestration
-│   │   └── logger.service.js         # Structured logging, audit trail
-│   │
-│   ├── modules/
-│   │   ├── auth.module.js            # Login page UI controller
-│   │   ├── documents.module.js       # Dashboard data + grid controller
-│   │   ├── upload.module.js          # Upload form + 2-phase commit
-│   │   ├── doc-management.module.js  # Edit + delete controller
-│   │   ├── share.module.js           # Share modal UI controller
-│   │   ├── family.module.js          # Family access page controller
-│   │   └── profile.module.js         # Profile fetch/update controller
-│   │
-│   ├── validators/
-│   │   ├── file.validator.js         # File type, size, MIME validation
-│   │   └── form.validator.js         # Input sanitisation
-│   │
-│   └── utils/
-│       ├── dom.utils.js              # Toast, loader, DOM helpers
-│       └── session.utils.js          # Auth guard, redirect helpers
-│
-└── 🔐 rules/
-    ├── firestore.rules               # Production Firestore security rules
-    └── storage.rules                 # Production Storage security rules
-```
 
 ---
 
@@ -316,65 +254,8 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for the complete CI/CD pipeline.
 - Phone numbers **masked** to last 4 digits in all logs (`+91XXXXXX3210`)
 - Session log cleared on sign-out (PII hygiene)
 - Debug logs suppressed in production (`APP_ENV=production`)
-
+- 
 ---
-
-## 🗄️ Firestore Schema
-
-```
-users/{uid}
-  ├── name:       string
-  ├── phone:      string   (E.164 format, immutable)
-  ├── dob:        string
-  ├── createdAt:  timestamp
-  └── updatedAt:  timestamp
-
-documents/{docId}
-  ├── ownerId:    string   (uid, immutable)
-  ├── title:      string
-  ├── type:       string   (aadhaar|pan|passport|driving|voter|other)
-  ├── fileRef:    string   (Storage path)
-  ├── fileURL:    string   (Download URL)
-  ├── mimeType:   string
-  ├── sizeBytes:  number
-  ├── sharedWith: array    [{uid, phone, accessLevel, sharedAt}]
-  ├── uploadedAt: timestamp
-  └── updatedAt:  timestamp
-
-familyLinks/{linkId}
-  ├── docId:        string
-  ├── requestorId:  string  (owner uid)
-  ├── targetPhone:  string
-  ├── targetUid:    string
-  ├── status:       string  (pending|accepted|revoked)
-  ├── createdAt:    timestamp
-  └── updatedAt:    timestamp
-```
-
----
-
-## 🎨 Design System
-
-Government-grade UI — clean, minimal, high readability. Inspired by DigiLocker and official Indian government portals.
-
-```css
-/* Color Palette */
---color-primary:      #1A3A5C   /* Deep Navy    — authority  */
---color-accent:       #C8A214   /* Saffron Gold — identity   */
---color-success:      #2E7D32   /* Green        — verified   */
---color-danger:       #C62828   /* Red          — critical   */
---color-bg:           #F4F6F9   /* Off-white    — portal feel*/
-
-/* Typography */
-font-family: 'Noto Sans'        /* Multilingual support      */
-
-/* Spacing */
-8px base grid system
-```
-
----
-
-
 
 ## 📄 License
 
@@ -388,7 +269,7 @@ Ronak Vaghela
 
 <div align="center">
 
-Made with ❤️ for secure digital India
+Made with ❤️ Passion and for the design purpose
 
 ⭐ Star this repo if you found it useful!
 
